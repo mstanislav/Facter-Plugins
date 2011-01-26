@@ -8,16 +8,18 @@ require 'facter'
 
 exit unless File.exists?(@facter) and File.exists?(@chkconfig)
 
-@distro = Facter.value('lsbdistid')
+if Facter.value('lsbdistid').match(/RedHatEnterpriseServer|CentOS/)
+    @distro = "RHEL"
+elsif Facter.value('lsbdistid').match(/Ubuntu|Debian/)
+    @distro = "Debian"
+end
 
-exit unless @distro.match(/Ubuntu|RedHatEnterprise|CentOS/)
-
-@services = {   "Ubuntu" => {   "mysql" => "mysql", "nagios" => "nagios3", "ssh" => "ssh", "munin-node" => "munin-node", "spamassassin" => "spamassassin", "ntp" => "ntp",
+@services = {   "Debian" => {   "mysql" => "mysql", "nagios" => "nagios3", "ssh" => "ssh", "munin-node" => "munin-node", "spamassassin" => "spamassassin", "ntp" => "ntp",
                                 "bind" => "bind9", "postfix" => "postfix", "nrpe" => "nagios-nrpe-server", "apache" => "apache2", "cron" => "cron", "snmp" => "snmpd", "puppet" => "puppet",
                                 "mcollective" => "mcollective" },
-                "CentOS" => {   "mysql" => "mysqld", "nagios" => "nagios", "ssh" => "sshd", "munin-node" => "munin-node", "spamassassin" => "spamassassin", "ntp" => "ntpd",
+                "RHEL" => {     "mysql" => "mysqld", "nagios" => "nagios", "ssh" => "sshd", "munin-node" => "munin-node", "spamassassin" => "spamassassin", "ntp" => "ntpd",
                                 "bind" => "named", "postfix" => "postfix", "nrpe" => "nrpe", "apache" => "httpd", "cron" => "crond", "snmp" => "snmpd", "puppet" => "puppet",
-                                "mcollective" => "mcollective" },
+                                "mcollective" => "mcollective", "activemq" => "activemq", "postfix" => "postfix" },
 }
 
 def check_init(service)
