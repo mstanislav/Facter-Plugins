@@ -4,5 +4,8 @@
 - - -
 ## Facter Plugins Available ##
 ### Services ###
-**Platform:** Ubuntu, RHEL, CentOS  
-**Description:** Provides a comma-delimited fact of enabled services (init or upstart) with uniform naming of services across platforms
+**Platform:** Debian, Ubuntu, RHEL, CentOS  
+**Description:** Provides a comma-delimited fact of enabled services (init or upstart) with uniform naming of services across platforms  
+### Interfaces ###
+**Platform:** Debian, Ubuntu, RHEL, CentOS  
+**Description:** Provides a comma-delimited fact of configured network interfaces
