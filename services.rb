@@ -22,6 +22,8 @@ end
                                 "mcollective" => "mcollective", "activemq" => "activemq", "postfix" => "postfix" },
 }
 
+@apache_modules = [ "passenger" ]
+
 def check_init(service)
     return %x[if [ "$(#{@chkconfig} --list #{service} 2> /dev/null | grep $(runlevel | awk '{ print $2 }'):on)" != "" ]; then echo 0; else echo 1; fi].chomp.to_i
 end
@@ -38,9 +40,14 @@ def check_service(service)
     end
 end
 
+def check_apache_module(mod)
+    return %x[/usr/sbin/httpd -M 2>&1 | grep #{mod} | wc -l].chomp.to_i
+end
+
 fact_services = Array.new
 
 @services[@distro].each { |service, value| fact_services << service if check_service(value) == 0 }
+@apache_modules.each { |mod| fact_services << mod if check_apache_module(mod) >= 1 }
 
 Facter.add("services") do
     setcode do
