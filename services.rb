@@ -19,7 +19,7 @@ end
                                 "mcollective" => "mcollective" },
                 "RHEL" => {     "mysql" => "mysqld", "nagios" => "nagios", "ssh" => "sshd", "munin-node" => "munin-node", "spamassassin" => "spamassassin", "ntp" => "ntpd",
                                 "bind" => "named", "postfix" => "postfix", "nrpe" => "nrpe", "apache" => "httpd", "cron" => "crond", "snmp" => "snmpd", "puppet" => "puppet",
-                                "mcollective" => "mcollective", "activemq" => "activemq", "postfix" => "postfix", "storman" => "stor_agent" },
+                                "mcollective" => "mcollective", "activemq" => "activemq", "postfix" => "postfix", "storman" => "stor_agent", "hobbit" => "hobbit-client", "syslog" => "syslog" },
 }
 
 @apache_modules = [ "passenger" ]
@@ -54,3 +54,4 @@ Facter.add("services") do
         fact_services.sort.join(",")
     end
 end
+
